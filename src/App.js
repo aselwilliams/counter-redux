@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import store from './store';
+import * as actions from './actions';
 
 function App() {
+  const [state,setState]=useState('')
+
+  const handleIncrement=()=>{
+    setState(!state)
+    store.dispatch({
+     type: actions.increment
+    })
+  }
+  const handleDecrement=()=>{
+    setState(!state)
+      store.dispatch({
+     type: actions.decrement
+    })
+  }
+  const handleReset=()=>{
+    setState(!state)
+    store.dispatch({
+     type: actions.reset
+    })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>Counter</h1>
+     <h1>{store.getState()}</h1>
+     <div className='btn-box'>
+       <button onClick={handleIncrement}>+</button>
+       <button onClick={handleDecrement}>-</button>
+       <button onClick={handleReset}>reset</button>
+     </div>
     </div>
   );
 }
